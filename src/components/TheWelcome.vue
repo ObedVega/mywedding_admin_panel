@@ -6,7 +6,7 @@
       <hr>
 
       <label for="email"><b>Correo electrónico</b></label>
-      <input type="text" placeholder="Ingresar correo electrónico" name="email" id="email" required>
+      <input type="email" placeholder="Ingresar correo electrónico" name="email" id="email" required>
 
       <label for="psw"><b>Contraseña</b></label>
       <input type="password" placeholder="Introduce tu contraseña" name="psw" id="psw" required>
@@ -18,7 +18,7 @@
     </div>
     
     <div class="container signin">
-      <p>¿Todavia no tienes cuenta? <a href="/about">Registrate aqui.</a></p>
+      <p>¿Todavia no tienes cuenta? <a href="/registro">Registrate aqui.</a></p>
     </div>
   </form>
 </template>
