@@ -12,7 +12,7 @@
       <input type="password" placeholder="Introduce tu contraseña" name="psw" id="psw" required>
 
       <hr>
-      <p>Olvidaste tu <a href="/reset"> Contraseña</a>?</p>
+      <p>Olvidaste tu <a href="/reset">contraseña</a>?</p>
 
       <button type="submit" class="registerbtn">Inicio sesión</button>
     </div>
