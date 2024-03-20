@@ -18,7 +18,7 @@
     </div>
     
     <div class="container signin">
-      <p>¿Todavia no tienes cuenta? <a href="/">Registrate aqui.</a>.</p>
+      <p>¿Todavia no tienes cuenta? <a href="/about">Registrate aqui.</a>.</p>
     </div>
   </form>
 </template>
