@@ -215,7 +215,7 @@
     <h5>Recent Comments</h5>
     <div class="w3-row">
       <div class="w3-col m2 text-center">
-        <img class="w3-circle" src="/w3images/avatar3.png" style="width:96px;height:96px">
+        <img class="w3-circle" src="" style="width:96px;height:96px">
       </div>
       <div class="w3-col m10 w3-container">
         <h4>John <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
