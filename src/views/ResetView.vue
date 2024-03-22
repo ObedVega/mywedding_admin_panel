@@ -1,23 +1,32 @@
 <template>
-    <form action="/action_page.php">
+   <div class="bod">
+    <div class="wrap">
+      <header>
+        <img alt="Vue logo" class="logo" src="@/assets/logo.png" width="125" height="125" />
+        <div class="wrapper">
+          <HelloWorld msg="Felicidades!" />
+        </div>
+      </header>
+      <form action="/action_page.php" class="forma">
         <div class="container">
             <h1>¿Olvidaste tu contraseña?</h1>
             <p>Ingresa tu dirección de correo electrónico para recuperar tu contraseña.</p>
             <hr>
-
             <label for="email"><b>Emai electrónico</b></label>
             <input type="email" placeholder="Ingresar correo electrónico" name="email" id="email" required>
-
             <hr>
-         
             <button type="submit" class="registerbtn">Enviar</button>
-        </div>
-        
-        <div class="container signin">
+            <div class="container signin">
             <p><a href="/">Regresar para iniciar sesión</a></p>
         </div>
-    </form>
+        </div>
+      </form>
+    </div>
+  </div>
 </template>
+<script setup>
+import HelloWorld from '../components/HelloWorld.vue';
+</script>
 <style>
 
 * {

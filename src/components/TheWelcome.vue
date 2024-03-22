@@ -1,29 +1,74 @@
 <template>
-  <form action="/action_page.php">
+  <form  @submit.prevent="login" class="forma">
     <div class="container">
       <h1>Bienvenido</h1>
       <p>Inicie sesión para administrar su cuenta.</p>
       <hr>
 
       <label for="email"><b>Correo electrónico</b></label>
-      <input type="email" placeholder="Ingresar correo electrónico" name="email" id="email" required>
-
+      <input type="email" placeholder="Ingresar correo electrónico" v-model="email" name="email" id="email" required>
+      <span v-if="email" class="error">{{ emailError }}</span>
+      
       <label for="psw"><b>Contraseña</b></label>
-      <input type="password" placeholder="Introduce tu contraseña" name="psw" id="psw" required>
+      <input type="password" placeholder="Introduce tu contraseña" v-model="password" name="psw" id="psw" required>
+      <span v-if="passwordError" class="error">{{ passwordError }}</span>  
 
       <hr>
       <p>Olvidaste tu <a href="/reset">contraseña</a>?</p>
 
       <button type="submit" class="registerbtn">Inicio sesión</button>
+      <div class="container signin">  
+        <p>¿Todavia no tienes cuenta? <a href="/registro">Registrate aqui.</a></p>
+      </div>
     </div>
     
-    <div class="container signin">
-      <p>¿Todavia no tienes cuenta? <a href="/registro">Registrate aqui.</a></p>
-    </div>
+
   </form>
 </template>
-<style>
+<script>
+//import HelloWorld from 'HelloWorld.vue';
+import AuthService from '@/services/AuthService.js';
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      emailError: '',
+      passwordError: ''
+    };
+  },
+  methods: {
+    login() {
+      // Reset errors
+      this.emailError = '';
+      this.passwordError = '';
 
+      // Validate username
+      if (!this.email) {
+        this.usernameError = 'Introduce tu correo electronico.';
+      }
+
+      // Validate password
+      if (!this.password) {
+        this.passwordError = 'Introduce tu contraseña.';
+      }
+
+      // Perform login if no errors
+      if (!this.emailError && !this.passwordError) {
+        // Aquí puedes realizar una llamada a una API para autenticar al usuario
+        console.log('Usuario autenticado');
+        const response = AuthService.login(this.email, this.password);
+                
+        console.log(response); 
+      }
+    }
+  }
+};
+</script>
+<style>
+.error {
+  color: #ed4c78;
+}
 * {
   box-sizing: border-box;
 }
