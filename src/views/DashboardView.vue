@@ -11,7 +11,7 @@
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index: 3; width: 300px; display: none;" id="mySidebar"><br>
   <div class="w3-container w3-row">
     <div class="w3-col s4">
-      <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
+      <img src="" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
       <span>Welcome, <strong>Mike</strong></span><br>
@@ -97,7 +97,7 @@
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-third">
         <h5>Regions</h5>
-        <img src="/w3images/region.jpg" style="width:100%" alt="Google Regional Map">
+        <img src="" style="width:100%" alt="Google Regional Map">
       </div>
       <div class="w3-twothird">
         <h5>Feeds</h5>
@@ -196,15 +196,15 @@
     <h5>Recent Users</h5>
     <ul class="w3-ul w3-card-4 w3-white">
       <li class="w3-padding-16">
-        <img src="/w3images/avatar2.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
+        <img src="" class="w3-left w3-circle w3-margin-right" style="width:35px">
         <span class="w3-xlarge">Mike</span><br>
       </li>
       <li class="w3-padding-16">
-        <img src="/w3images/avatar5.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
+        <img src="" class="w3-left w3-circle w3-margin-right" style="width:35px">
         <span class="w3-xlarge">Jill</span><br>
       </li>
       <li class="w3-padding-16">
-        <img src="/w3images/avatar6.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
+        <img src="" class="w3-left w3-circle w3-margin-right" style="width:35px">
         <span class="w3-xlarge">Jane</span><br>
       </li>
     </ul>
@@ -225,7 +225,7 @@
 
     <div class="w3-row">
       <div class="w3-col m2 text-center">
-        <img class="w3-circle" src="/w3images/avatar1.png" style="width:96px;height:96px">
+        <img class="w3-circle" src="" style="width:96px;height:96px">
       </div>
       <div class="w3-col m10 w3-container">
         <h4>Bo <span class="w3-opacity w3-medium">Sep 28, 2014, 10:15 PM</span></h4>
