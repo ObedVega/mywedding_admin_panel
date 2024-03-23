@@ -1,3 +1,6 @@
+<script setup>
+import Loader from '../components/LoaderDos.vue';
+</script>
 <template>
   <form  @submit.prevent="login" class="forma">
     <div class="container">
@@ -16,7 +19,7 @@
       <hr>
       <p>Olvidaste tu <a href="/reset">contraseña</a>?</p>
 
-      <button type="submit" class="registerbtn">Inicio sesión</button>
+      <button type="submit" class="registerbtn">{{ isLoading ? '' : registrarMsg   }} <Loader v-if="isLoading" /> </button>
       <div class="container signin">  
         <p>¿Todavia no tienes cuenta? <a href="/registro">Registrate aqui.</a></p>
       </div>
@@ -34,7 +37,9 @@ export default {
       email: '',
       password: '',
       emailError: '',
-      passwordError: ''
+      registrarMsg: 'Inicio sesión',
+      passwordError: '',
+      isLoading: false
     };
   },
   methods: {
@@ -42,6 +47,7 @@ export default {
       // Reset errors
       this.emailError = '';
       this.passwordError = '';
+      this.isLoading = true; 
 
       // Validate username
       if (!this.email) {
@@ -55,20 +61,31 @@ export default {
 
       // Perform login if no errors
       if (!this.emailError && !this.passwordError) {
+        try{
         // Aquí puedes realizar una llamada a una API para autenticar al usuario
-        console.log('Autenticado usuario...');
-        const response = await AuthService.login(this.email, this.password);
-        console.log('response:', response); 
-        console.log('response.status:', response.status);
-        if (response.status === 200) {
-          console.log('Usuario autenticado');
-          this.$router.push('/dashboard');
-        } else {
-          console.log('Usuario no autenticado');
+          console.log('Autenticado usuario...');
+          const response = await AuthService.login(this.email, this.password);
+          console.log('response:', response); 
+          console.log('response.status:', response.status);
+          if (response.status === 200) {
+            console.log('Usuario autenticado');
+            this.$router.push('/dashboard');
+          } else {
+            console.log('Usuario no autenticado');
+            this.emailError = 'Usuario o contraseña incorrectos.';
+          }
+        } catch (error) {
+          console.error('Error al autenticar usuario:', error);
+        } finally {
+          this.registrarMsg = 'Registrar';
+          this.isLoading = false;
         }
-        
+  
       }
     }
+  },
+  components: {
+    Loader
   }
 };
 </script>

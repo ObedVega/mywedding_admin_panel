@@ -3,18 +3,21 @@
 
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu</button>
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" @click="toggleSidebar">
+    <i class="fa fa-bars"></i> &nbsp;Menu
+  </button>  
   <span class="w3-bar-item w3-right">nvite.me</span>
 </div>
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index: 3; width: 300px; display: none;" id="mySidebar"><br>
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" :style="{ display: sidebarOpen ? 'block' : 'none' }" style="z-index: 3; width: 300px;" id="mySidebar">
+<br>
   <div class="w3-container w3-row">
     <div class="w3-col s4">
-      <img src="" class="w3-circle w3-margin-right" style="width:46px">
+      <img src="https://www.w3schools.com/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
-      <span>Welcome, <strong>Mike</strong></span><br>
+      Welcome,Mike <br>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
@@ -40,7 +43,8 @@
 
 
 <!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor: pointer; display: none;" title="close side menu" id="myOverlay"></div>
+<div class="w3-overlay w3-hide-large w3-animate-opacity" @click="closeSidebar" style="cursor: pointer;" title="close side menu" id="myOverlay"></div>
+  
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
@@ -97,7 +101,7 @@
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-third">
         <h5>Regions</h5>
-        <img src="" style="width:100%" alt="Google Regional Map">
+        <img src="https://www.w3schools.com/w3images/region.jpg" style="width:100%" alt="Google Regional Map">
       </div>
       <div class="w3-twothird">
         <h5>Feeds</h5>
@@ -196,15 +200,15 @@
     <h5>Recent Users</h5>
     <ul class="w3-ul w3-card-4 w3-white">
       <li class="w3-padding-16">
-        <img src="" class="w3-left w3-circle w3-margin-right" style="width:35px">
+        <img src="https://www.w3schools.com/w3images/avatar2.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
         <span class="w3-xlarge">Mike</span><br>
       </li>
       <li class="w3-padding-16">
-        <img src="" class="w3-left w3-circle w3-margin-right" style="width:35px">
+        <img src="https://www.w3schools.com/w3images/avatar5.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
         <span class="w3-xlarge">Jill</span><br>
       </li>
       <li class="w3-padding-16">
-        <img src="" class="w3-left w3-circle w3-margin-right" style="width:35px">
+        <img src="https://www.w3schools.com/w3images/avatar6.png" class="w3-left w3-circle w3-margin-right" style="width:35px">
         <span class="w3-xlarge">Jane</span><br>
       </li>
     </ul>
@@ -215,7 +219,7 @@
     <h5>Recent Comments</h5>
     <div class="w3-row">
       <div class="w3-col m2 text-center">
-        <img class="w3-circle" src="" style="width:96px;height:96px">
+        <img class="w3-circle" src="https://www.w3schools.com/w3images/avatar3.png" style="width:96px;height:96px">
       </div>
       <div class="w3-col m10 w3-container">
         <h4>John <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
@@ -225,7 +229,7 @@
 
     <div class="w3-row">
       <div class="w3-col m2 text-center">
-        <img class="w3-circle" src="" style="width:96px;height:96px">
+        <img class="w3-circle" src="https://www.w3schools.com/w3images/avatar1.png" style="width:96px;height:96px">
       </div>
       <div class="w3-col m10 w3-container">
         <h4>Bo <span class="w3-opacity w3-medium">Sep 28, 2014, 10:15 PM</span></h4>
@@ -274,12 +278,13 @@
 </template>
 <script>
 // Get the Sidebar
-var mySidebar = document.getElementById("mySidebar");
+// var mySidebar = document.getElementById("mySidebar");
 
 // Get the DIV with overlay effect
-var overlayBg = document.getElementById("myOverlay");
+// var overlayBg = document.getElementById("myOverlay");
 
 // Toggle between showing and hiding the sidebar, and add overlay effect
+/*
 function w3_open() {
   if (mySidebar.style.display === 'block') {
     mySidebar.style.display = 'none';
@@ -289,12 +294,27 @@ function w3_open() {
     overlayBg.style.display = "block";
   }
 }
-
+*/
 // Close the sidebar with the close button
+/*
 function w3_close() {
   mySidebar.style.display = "none";
   overlayBg.style.display = "none";
 }
+*/
+export default {
+  data() {
+    return {
+      sidebarOpen: false
+    };
+  },
+  methods: {
+    toggleSidebar() {
+      this.sidebarOpen = !this.sidebarOpen;
+    },
+    closeSidebar() {
+      this.sidebarOpen = false;
+    }
+  }
+};
 </script>
-<style>
-</style>
