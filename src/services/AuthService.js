@@ -34,7 +34,7 @@ export default {
   login(credentials) {
     return axios.post(`${baseURL}/login`, credentials);
   }*/
-  login(email, password) {
+  async login(email, password) {
     try{
         // Obtener el token CSRF
     //    const csrfResponse = await axios.get(`${baseURL}/get-token-csrf/`);

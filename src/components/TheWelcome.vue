@@ -38,7 +38,7 @@ export default {
     };
   },
   methods: {
-    login() {
+    async login() {
       // Reset errors
       this.emailError = '';
       this.passwordError = '';
@@ -56,10 +56,17 @@ export default {
       // Perform login if no errors
       if (!this.emailError && !this.passwordError) {
         // Aquí puedes realizar una llamada a una API para autenticar al usuario
-        console.log('Usuario autenticado');
-        const response = AuthService.login(this.email, this.password);
-                
-        console.log(response); 
+        console.log('Autenticado usuario...');
+        const response = await AuthService.login(this.email, this.password);
+        console.log('response:', response); 
+        console.log('response.status:', response.status);
+        if (response.status === 200) {
+          console.log('Usuario autenticado');
+          this.$router.push('/dashboard');
+        } else {
+          console.log('Usuario no autenticado');
+        }
+        
       }
     }
   }
