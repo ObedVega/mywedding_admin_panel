@@ -54,6 +54,31 @@ export default {
       console.log('Error:', e);
       throw error; 
     }
+  },
+  async getUserInfo() {
+    try {
+      const token = sessionStorage.getItem('token');
+      if (!token) {
+        throw new Error('No hay token de sesión.');
+      }
+      /*
+      const response = await axios.get(`${baseURL}/getInfo/`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      */
+      const mockUserData = {
+        id: 1,
+        name: 'Obed',
+        email: 'vega.obed@gmail.com',
+        // Otros campos de información del usuario...
+      };
+    //  return response.data;
+    return mockUserData;
+    } catch (error) {
+      throw new Error('Error al obtener la información del usuario:', error);
+    }
   }
   
 };

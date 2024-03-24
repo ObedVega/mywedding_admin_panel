@@ -17,7 +17,7 @@
       <img src="https://www.w3schools.com/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
-      Welcome, <span v-if="user">{{ user.email }}</span> <br>
+      Bienvenido, {{ user.name }} <br>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
@@ -280,6 +280,7 @@
 </body>
 </template>
 <script>
+import AuthService from '@/services/AuthService.js';
 // Get the Sidebar
 // var mySidebar = document.getElementById("mySidebar");
 
@@ -311,6 +312,17 @@ export default {
       sidebarOpen: false,
       user: null 
     };
+  },
+  async created() {
+    try {
+      // Hacer una solicitud al servidor para obtener la información del usuario
+      const userData = await AuthService.getUserInfo();
+      // Actualizar el estado del usuario con la información obtenida
+      this.user = userData;
+      console.log('Información del usuario:', this.user);
+    } catch (error) {
+      console.error('Error al obtener la información del usuario:', error);
+    }
   },
   methods: {
     logout() {
