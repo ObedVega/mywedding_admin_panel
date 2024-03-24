@@ -17,7 +17,7 @@
       <img src="https://www.w3schools.com/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
-      Welcome,Mike <br>
+      Welcome, <span v-if="user">{{ user.email }}</span> <br>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
@@ -28,7 +28,7 @@
     <h5>Dashboard</h5>
   </div>
   <div class="w3-bar-block">
-    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" @click="closeSidebar" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
     <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-users fa-fw"></i>&nbsp; Overview</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>&nbsp; Views</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>&nbsp; Traffic</a>
@@ -37,7 +37,10 @@
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>&nbsp; News</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>&nbsp; General</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>&nbsp; History</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings</a><br><br>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings</a>
+    <hr>
+    <button class="w3-bar-item w3-button w3-padding" @click="logout">Cerrar sesión</button>
+    <br><br>
   </div>
 </nav>
 
@@ -305,10 +308,14 @@ function w3_close() {
 export default {
   data() {
     return {
-      sidebarOpen: false
+      sidebarOpen: false,
+      user: null 
     };
   },
   methods: {
+    logout() {
+      this.$store.dispatch('logout'); // Llama a la acción de logout
+    },
     toggleSidebar() {
       this.sidebarOpen = !this.sidebarOpen;
     },
@@ -318,3 +325,11 @@ export default {
   }
 };
 </script>
+<style>
+@media (min-width: 1024px){
+  nav {
+    margin-top: 0;
+  }
+}
+
+</style>

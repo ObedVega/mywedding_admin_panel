@@ -49,7 +49,6 @@ export default {
 
         console.log(headers);
         console.log('Email: ' + email);
-        console.log('Password: ' + hPassword);  
         return axios.post(`${baseURL}/login/`, { email, hPassword }, { headers });
     }catch(e){
       console.log('Error:', e);

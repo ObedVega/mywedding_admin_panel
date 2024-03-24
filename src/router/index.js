@@ -26,24 +26,24 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: () => import('../views/DashboardView.vue'),
-    //  meta: { requiresAuth: true }
+      meta: { requiresAuth: true }
     }
   ]
 });
-/*
+
+
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    // Verifica si el usuario está autenticado utilizando Vuex
-    const isAuthenticated = store.state.isAuthenticated;
-
-    if (isAuthenticated) {
-      next();
+    // Verificar si el usuario está autenticado
+    console.log('token guardado en sessionStorage:', sessionStorage.getItem('token'));
+    if (!sessionStorage.getItem('token')) {
+      // Si no hay un token en el almacenamiento local, redirigir al login
+      next('/');
     } else {
-      next('/'); // Redirige a la página de inicio de sesión si no está autenticado
+      next();
     }
   } else {
     next();
   }
 });
-*/
 export default router;

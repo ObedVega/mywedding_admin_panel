@@ -19,7 +19,7 @@ import Loader from '../components/LoaderDos.vue';
       <hr>
       <p>Olvidaste tu <a href="/reset">contraseña</a>?</p>
 
-      <button type="submit" class="registerbtn">{{ isLoading ? '' : registrarMsg   }} <Loader v-if="isLoading" /> </button>
+      <button type="submit" class="registerbtn">{{ isLoading ? '' : Msg   }} <Loader v-if="isLoading" /> </button>
       <div class="container signin">  
         <p>¿Todavia no tienes cuenta? <a href="/registro">Registrate aqui.</a></p>
       </div>
@@ -29,7 +29,6 @@ import Loader from '../components/LoaderDos.vue';
   </form>
 </template>
 <script>
-//import HelloWorld from 'HelloWorld.vue';
 import AuthService from '@/services/AuthService.js';
 export default {
   data() {
@@ -37,10 +36,18 @@ export default {
       email: '',
       password: '',
       emailError: '',
-      registrarMsg: 'Inicio sesión',
+      Msg: 'Inicio sesión',
       passwordError: '',
-      isLoading: false
+      isLoading: false,
+      user: null
     };
+  },
+  mounted() {
+    // Verifica si hay un token en sessionStorage al cargar la página
+    if (sessionStorage.getItem('token')) {
+      // Si hay un token, redirecciona al Dashboard
+      this.$router.push('/dashboard');
+    }
   },
   methods: {
     async login() {
@@ -68,7 +75,11 @@ export default {
           console.log('response:', response); 
           console.log('response.status:', response.status);
           if (response.status === 200) {
-            console.log('Usuario autenticado');
+            console.log('Usuario autenticado: ', response.data.email);
+            this.user = response.data.user;
+            const token = response.data.token; 
+            console.log('token:', token);
+            sessionStorage.setItem('token', token);
             this.$router.push('/dashboard');
           } else {
             console.log('Usuario no autenticado');
@@ -77,7 +88,7 @@ export default {
         } catch (error) {
           console.error('Error al autenticar usuario:', error);
         } finally {
-          this.registrarMsg = 'Registrar';
+          this.Msg = 'Inicio sesión';
           this.isLoading = false;
         }
   
