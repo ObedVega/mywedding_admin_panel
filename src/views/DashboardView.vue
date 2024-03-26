@@ -12,22 +12,22 @@
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" :style="{ display: sidebarOpen ? 'block' : 'none' }" style="z-index: 3; width: 300px;" id="mySidebar">
 <br>
-  <div class="w3-container w3-row">
+  <div class="ml w3-container w3-row">
     <div class="w3-col s4">
       <img src="https://www.w3schools.com/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
-      Bienvenido, {{ user.name }} <br>
+      Bienvenido, {{ user.nombre }}, {{ userEmail }}<br>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
     </div>
   </div>
   <hr>
-  <div class="w3-container">
+  <div class="ml w3-container">
     <h5>Dashboard</h5>
   </div>
-  <div class="w3-bar-block">
+  <div class="ml w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" @click="closeSidebar" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
     <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-users fa-fw"></i>&nbsp; Overview</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>&nbsp; Views</a>
@@ -39,8 +39,9 @@
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>&nbsp; History</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>&nbsp; Settings</a>
     <hr>
-    <button class="w3-bar-item w3-button w3-padding" @click="logout">Cerrar sesión</button>
+    <button class="w3-bar-item w3-button w3-padding" @click="showLogoutModal"><i class="fa fa-remove fa-fw"></i>&nbsp;Cerrar sesión</button>
     <br><br>
+    <button class="w3-bar-item w3-button w3-padding" @click="logout"><i class="fa fa-remove fa-fw"></i>&nbsp;Cerrar sesión</button>
   </div>
 </nav>
 
@@ -51,14 +52,28 @@
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+  
+  <CompletaInfo :uEmail="userEmail" :style="{ display: user.nombre !== '' ? 'none' : 'block' }" @datos-actualizados="refreshData"/>
 
+
+  <!-- Modal de confirmación de cierre de sesión -->
+  <LogoutModal v-if="showModal" @close="closeModal" @logout="logout" />
+  <!-- Modal -->
+  
   <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
     <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
   </header>
 
   <div class="w3-row-padding w3-margin-bottom">
-    <div class="w3-quarter">
+    <div class="">
+      <div class="success">
+        <p><strong>Bienvenido</strong> {{ user.nombre }}</p>
+        <p>Aun necesitamos los datos de tu novia para poder generar la invitacion</p>
+      </div>
+    </div>
+
+    <div class="w3-half">
       <div class="w3-container w3-red w3-padding-16">
         <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
         <div class="w3-right">
@@ -68,7 +83,7 @@
         <h4>Messages</h4>
       </div>
     </div>
-    <div class="w3-quarter">
+    <div class="w3-half">
       <div class="w3-container w3-blue w3-padding-16">
         <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
         <div class="w3-right">
@@ -78,26 +93,8 @@
         <h4>Views</h4>
       </div>
     </div>
-    <div class="w3-quarter">
-      <div class="w3-container w3-teal w3-padding-16">
-        <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
-        <div class="w3-right">
-          <h3>23</h3>
-        </div>
-        <div class="w3-clear"></div>
-        <h4>Shares</h4>
-      </div>
-    </div>
-    <div class="w3-quarter">
-      <div class="w3-container w3-orange w3-text-white w3-padding-16">
-        <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
-        <div class="w3-right">
-          <h3>50</h3>
-        </div>
-        <div class="w3-clear"></div>
-        <h4>Users</h4>
-      </div>
-    </div>
+   
+    
   </div>
 
   <div class="w3-panel">
@@ -278,70 +275,121 @@
 
 
 </body>
+
 </template>
 <script>
+import { mapState } from 'vuex';
 import AuthService from '@/services/AuthService.js';
-// Get the Sidebar
-// var mySidebar = document.getElementById("mySidebar");
+import CompletaInfo from '@/components/CompletaInfo.vue';
+import LogoutModal from '@/components/LogoutModal.vue';
 
-// Get the DIV with overlay effect
-// var overlayBg = document.getElementById("myOverlay");
-
-// Toggle between showing and hiding the sidebar, and add overlay effect
-/*
-function w3_open() {
-  if (mySidebar.style.display === 'block') {
-    mySidebar.style.display = 'none';
-    overlayBg.style.display = "none";
-  } else {
-    mySidebar.style.display = 'block';
-    overlayBg.style.display = "block";
-  }
-}
-*/
-// Close the sidebar with the close button
-/*
-function w3_close() {
-  mySidebar.style.display = "none";
-  overlayBg.style.display = "none";
-}
-*/
 export default {
+  computed: {
+    // Mapea el email del usuario desde el store a una propiedad computada
+    ...mapState(['userEmail'])
+  },
   data() {
     return {
       sidebarOpen: false,
-      user: null 
+      user: '',
+      email: '',
+      showModal: false
     };
   },
+  //props: ['userEmail'],
   async created() {
     try {
+      this.email = this.userEmail;
+      console.log('Email del usuario:', this.email);
       // Hacer una solicitud al servidor para obtener la información del usuario
-      const userData = await AuthService.getUserInfo();
+      const userData = await AuthService.getUserInfo(this.email);
       // Actualizar el estado del usuario con la información obtenida
       this.user = userData;
       console.log('Información del usuario:', this.user);
+//      this.userEmail = userData.email;
+  //    this.user.name= 'obed',
+//      console.log('Información del usuario:', this.user.email);
     } catch (error) {
-      console.error('Error al obtener la información del usuario:', error);
+      console.log('Error al obtener la información del usuario:', error);
     }
   },
+  components: {
+    LogoutModal,
+    CompletaInfo
+  },
   methods: {
+    refreshData() {
+        // Volver a cargar los datos del usuario o realizar alguna acción necesaria
+        console.log('Datos actualizados, refrescando...');
+        window.location.reload();
+    },
+    showLogoutModal() {
+      this.showModal = true;
+    },
+    closeModal() {
+      this.showModal = false;
+    },
     logout() {
       this.$store.dispatch('logout'); // Llama a la acción de logout
+      this.closeModal(); // Cierra el modal después de cerrar la sesión
     },
+//    logout() {
+//      this.$store.dispatch('logout'); // Llama a la acción de logout
+//    },
     toggleSidebar() {
       this.sidebarOpen = !this.sidebarOpen;
     },
     closeSidebar() {
       this.sidebarOpen = false;
     }
-  }
+  },
+  
 };
 </script>
 <style>
+.success {
+  margin-bottom: 15px;
+  padding: 4px 12px;
+  background-color: #ddffdd;
+  border-left: 6px solid #04AA6D;
+}
+
 @media (min-width: 1024px){
   nav {
     margin-top: 0;
   }
+  .ml{
+    margin-left: 10px ;
+  }
+}
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
+input[type=submit] {
+  width: 100%;
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
 </style>

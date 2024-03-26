@@ -75,11 +75,14 @@ export default {
           console.log('response:', response); 
           console.log('response.status:', response.status);
           if (response.status === 200) {
-            console.log('Usuario autenticado: ', response.data.email);
+            
             this.user = response.data.user;
             const token = response.data.token; 
-            console.log('token:', token);
+            //const userEmail = response.data.email; 
+            //console.log('Usuario autenticado: ', userEmail);
+            //console.log('token:', token);
             sessionStorage.setItem('token', token);
+            this.$store.dispatch('login', { token, userEmail: this.email });
             this.$router.push('/dashboard');
           } else {
             console.log('Usuario no autenticado');
@@ -111,7 +114,7 @@ export default {
 /* Add padding to containers */
 .container {
   padding: 16px;
-  background-color: white;
+  background-color: white !important;
 }
 
 /* Full-width input fields */

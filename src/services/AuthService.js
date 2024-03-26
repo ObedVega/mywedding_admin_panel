@@ -27,13 +27,6 @@ export default {
       throw error; 
     }
   },
-  /*,
-  resetPassword(email) {
-    return axios.post(`${baseURL}/reset-password`, { email });
-  },
-  login(credentials) {
-    return axios.post(`${baseURL}/login`, credentials);
-  }*/
   async login(email, password) {
     try{
         // Obtener el token CSRF
@@ -55,29 +48,53 @@ export default {
       throw error; 
     }
   },
-  async getUserInfo() {
+  async getUserInfo(email) {
     try {
       const token = sessionStorage.getItem('token');
       if (!token) {
         throw new Error('No hay token de sesión.');
       }
-      /*
-      const response = await axios.get(`${baseURL}/getInfo/`, {
+      
+      const response = await axios.get(`${baseURL}/getInfo/${email}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      */
+  
+    //  console.log(response.data);
+      
       const mockUserData = {
         id: 1,
-        name: 'Obed',
+        name: 'obed',
         email: 'vega.obed@gmail.com',
         // Otros campos de información del usuario...
       };
-    //  return response.data;
-    return mockUserData;
+      return response.data;
+  //  return mockUserData;
     } catch (error) {
       throw new Error('Error al obtener la información del usuario:', error);
+    }
+  },
+  async actualizaDatos(email, nombre, apellido, evento, tipo) {
+    console.log('email: ' + email + ', nombre: ' + nombre + ', apellido: ' + apellido + ', evento: ' + evento + ', tipo: ' + tipo);
+    try{
+        // Obtener el token CSRF
+    //    const csrfResponse = await axios.get(`${baseURL}/get-token-csrf/`);
+    //    const csrfToken = csrfResponse.data.csrf_token;
+    //    const hPassword = CryptoJS.SHA256(password).toString();
+        const headers = {
+    //        'X-CSRFToken': csrfToken,
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + 'accessToken',
+            'Accept': 'application/json'
+        };
+
+        console.log(headers);
+       
+        return axios.put(`${baseURL}/getInfo/`, { email, nombre, apellido, evento, tipo }, { headers });
+    }catch(e){
+      console.log('Error:', e);
+      throw error; 
     }
   }
   

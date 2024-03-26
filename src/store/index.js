@@ -4,22 +4,34 @@ import router from '../router';
 const store = createStore({
   state() {
     return {
-      token: sessionStorage.getItem('token') || null
+      token: sessionStorage.getItem('token') || null,
+      userEmail: localStorage.getItem('userEmail') || null
     };
   },
   mutations: {
     setToken(state, token) {
       state.token = token;
       sessionStorage.setItem('token', token);
+    },
+    setUserEmail(state, email) {
+      state.userEmail = email;
+      localStorage.setItem('userEmail', email);
+    },
+    clearUser(state) {
+      state.userEmail = null;
+      localStorage.removeItem('userEmail');
     }
   },
   actions: {
+    login({ commit }, { token, userEmail }) {
+      commit('setToken', token);
+      commit('setUserEmail', userEmail);
+    },
     logout({ commit }) {
+      commit('clearUser');
       commit('setToken', null);
       sessionStorage.removeItem('token');
-      // Puedes importar router directamente aquí si no quieres pasar router como argumento
       router.push('/');
-    //    this.$router.push('/');
     }
   }
 });
