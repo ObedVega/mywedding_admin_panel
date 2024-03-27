@@ -15,7 +15,7 @@ import Loader from '../components/LoaderDos.vue';
       <label for="psw"><b>Contraseña</b></label>
       <input type="password" placeholder="Introduce tu contraseña" v-model="password" name="psw" id="psw" required>
       <span v-if="passwordError" class="error">{{ passwordError }}</span>  
-
+      <span v-if="errorMsg" class="error">{{ errorMsg }}</span>
       <hr>
       <p>Olvidaste tu <a href="/reset">contraseña</a>?</p>
 
@@ -39,7 +39,8 @@ export default {
       Msg: 'Inicio sesión',
       passwordError: '',
       isLoading: false,
-      user: null
+      user: null,
+      errorMsg: ''
     };
   },
   mounted() {
@@ -85,11 +86,20 @@ export default {
             this.$store.dispatch('login', { token, userEmail: this.email });
             this.$router.push('/dashboard');
           } else {
-            console.log('Usuario no autenticado');
-            this.emailError = 'Usuario o contraseña incorrectos.';
+               // Mostrar mensaje de error si las credenciales son incorrectas
+               console.log('Error al autenticar usuario');
+            if (response.status === 401) {
+                this.errorMsg = 'Usuario o contraseña incorrectos.';
+                console.log(this.errorMsg);
+            } else {
+                // Otros códigos de estado de respuesta
+                this.errorMsg = 'Usuario o contraseña incorrectos.';
+                console.log(response.data.message);
+            }
           }
         } catch (error) {
-          console.error('Error al autenticar usuario:', error);
+          this.errorMsg = 'Usuario o contraseña incorrecto.';
+          console.error('Error', error);
         } finally {
           this.Msg = 'Inicio sesión';
           this.isLoading = false;

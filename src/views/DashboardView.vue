@@ -53,7 +53,7 @@
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
   
-  <CompletaInfo :uEmail="userEmail" :style="{ display: user.nombre !== '' ? 'none' : 'block' }" @datos-actualizados="refreshData"/>
+  <CompletaInfo :uEmail="userEmail" :style="{ display: user.nombreNovio !== '' || user.nombreNovia !== '' ? 'none' : 'block' }" @datos-actualizados="refreshData"/>
 
 
   <!-- Modal de confirmación de cierre de sesión -->
@@ -65,38 +65,55 @@
     <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
   </header>
 
+  
   <div class="w3-row-padding w3-margin-bottom">
-    <div class="">
       <div class="success">
         <p><strong>Bienvenido</strong> {{ user.nombre }}</p>
         <p>Aun necesitamos los datos de tu novia para poder generar la invitacion</p>
       </div>
-    </div>
-
-    <div class="w3-half">
-      <div class="w3-container w3-red w3-padding-16">
-        <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
-        <div class="w3-right">
-          <h3>52</h3>
-        </div>
-        <div class="w3-clear"></div>
-        <h4>Messages</h4>
-      </div>
-    </div>
-    <div class="w3-half">
-      <div class="w3-container w3-blue w3-padding-16">
-        <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
-        <div class="w3-right">
-          <h3>99</h3>
-        </div>
-        <div class="w3-clear"></div>
-        <h4>Views</h4>
-      </div>
-    </div>
-   
-    
   </div>
+  
+  <div class="w3-panel" v-if="user.nombreNovia !== ''">
+      <div><h3><b>Datos de la novia</b></h3></div>
+      {{ user.nombreNovia }}
+  </div>
+  <DatosNovia :uEmail="userEmail" v-if="user.nombreNovia === ''" @datos-actualizados="refreshData"/>
 
+  <div class="w3-panel">
+    <div><h3><b>Datos del evento</b></h3></div>
+    <form class="w3-container w3-card-4">
+      <div class="w3-container">
+        <h2>Datos del evento</h2>
+      </div>
+      <div class="w3-row-padding">
+        <div class="w3-half">
+          <label>Fecha del evento</label>
+          <input class="w3-input w3-border" type="date">
+        </div>
+        <div class="w3-half">
+          <label>Ubicacion</label>
+          <input class="w3-input w3-border" type="text" placeholder="Two">
+        </div>
+        <div class="w3-row-padding">
+          <button class="w3-btn w3-blue">Guardar</button>
+        </div>
+      </div>
+      <br>
+    </form>   
+  </div>  
+<!--
+  <div class="w3-container">
+    <h5>Recent Comments</h5>
+    <div class="w3-row">
+      <div class="w3-col m2 text-center">
+        <img class="w3-circle" src="https://www.w3schools.com/w3images/avatar3.png" style="width:96px;height:96px">
+      </div>
+      <div class="w3-col m10 w3-container">
+        <h4>John <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
+        <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
+      </div>
+    </div>
+   </div> 
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-third">
@@ -261,7 +278,7 @@
       </div>
     </div>
   </div>
-
+-->
   <!-- Footer -->
   <footer class="w3-container w3-padding-16 w3-light-grey">
     <h4>FOOTER</h4>
@@ -281,6 +298,7 @@
 import { mapState } from 'vuex';
 import AuthService from '@/services/AuthService.js';
 import CompletaInfo from '@/components/CompletaInfo.vue';
+import DatosNovia from '@/components/DatosNovia.vue'
 import LogoutModal from '@/components/LogoutModal.vue';
 
 export default {
@@ -315,7 +333,8 @@ export default {
   },
   components: {
     LogoutModal,
-    CompletaInfo
+    CompletaInfo,
+    DatosNovia
   },
   methods: {
     refreshData() {
