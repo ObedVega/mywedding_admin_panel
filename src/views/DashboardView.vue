@@ -72,25 +72,27 @@
         <p>Aun necesitamos los datos de tu novia para poder generar la invitacion</p>
       </div>
   </div>
-  <div class="w3-panel">
-  <template v-if="user.nombre !== '' && user.nombreNovia !== ''">
-    <a :href="'https://mywedding-cyks.onrender.com/w/' + user.nombre.trim() + '&' + user.nombreNovia.trim()" target="_blank">
-      {{ 'https://mywedding-cyks.onrender.com/w/' + user.nombre.trim() + '&' + user.nombreNovia.trim() }}
+  <div class="w3-panel" v-if="user.sitioweb !== ''">
+    <a :href="'https://mywedding-cyks.onrender.com/w/' + (user.nombre ? user.nombre.trim() : '') + '&' + (user.nombreNovia ? user.nombreNovia.trim() : '')" target="_blank">
+      {{ 'https://mywedding-cyks.onrender.com/w/' + (user.nombre ? user.nombre.trim() : '') + '&' + (user.nombreNovia ? user.nombreNovia.trim() : '') }}
     </a>
-  </template>
-  <template v-else>
-    <p>Aun no hay un link para tu sitio.</p>
-  </template>
-</div>
+  </div>
+  <div class="w3-panel" v-else>
+    <p>Aún no hay sitio web disponible</p>
+  </div>
   
   <div class="w3-panel" v-if="user.nombreNovia !== ''">
       <div><h3><b>Datos de la novia</b></h3></div>
       {{ user.nombreNovia }}
   </div>
-  <DatosNovia :uEmail="userEmail" v-if="user.nombreNovia === ''" @datos-actualizados="refreshData"/>
+  <DatosNovia :uEmail="userEmail" :uName="user.nombre" v-if="user.nombreNovia === ''" @datos-actualizados="refreshData"/>
 
   <DatosEvento :uEmail="userEmail"/>
   
+  <Invitacion :uEmail="userEmail"/>
+
+
+
 <!--
   <div class="w3-container">
     <h5>Recent Comments</h5>
@@ -291,6 +293,8 @@ import CompletaInfo from '@/components/CompletaInfo.vue';
 import DatosNovia from '@/components/DatosNovia.vue'
 import DatosEvento from '@/components/DatosEvento.vue'
 import LogoutModal from '@/components/LogoutModal.vue';
+import Invitacion from '@/components/Invitacion.vue';
+//import { template } from 'cypress/types/lodash';
 
 export default {
   computed: {
@@ -326,7 +330,8 @@ export default {
     LogoutModal,
     CompletaInfo,
     DatosNovia,
-    DatosEvento
+    DatosEvento,
+    Invitacion
   },
   methods: {
     refreshData() {

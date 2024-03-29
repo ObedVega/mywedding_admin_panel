@@ -97,7 +97,7 @@ export default {
       throw error; 
     }
   },
-  async actualizaDatosNovia(email, nombreNovia, apellidoNovia) {
+  async actualizaDatosNovia(id, email, nombreNovio, nombreNovia, apellidoNovia) {
     try{
         // Obtener el token CSRF
     //    const csrfResponse = await axios.get(`${baseURL}/get-token-csrf/`);
@@ -112,7 +112,49 @@ export default {
 
         console.log(headers);
        
-        return axios.put(`${baseURL}/getInfo/`, { email, nombreNovia, apellidoNovia }, { headers });
+        return axios.put(`${baseURL}/getInfo/`, { id, email, nombreNovio, nombreNovia, apellidoNovia }, { headers });
+    }catch(e){
+      console.log('Error:', e);
+      throw error; 
+    }
+  },
+  async actualizaDatosEvento(id, email, diaEvento, timeEvento, direccionEvento, palabrasInvitados) {
+    try{
+        // Obtener el token CSRF
+    //    const csrfResponse = await axios.get(`${baseURL}/get-token-csrf/`);
+    //    const csrfToken = csrfResponse.data.csrf_token;
+    //    const hPassword = CryptoJS.SHA256(password).toString();
+        const headers = {
+    //        'X-CSRFToken': csrfToken,
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + 'accessToken',
+            'Accept': 'application/json'
+        };
+
+        console.log(headers);
+       
+        return axios.put(`${baseURL}/getInfo/`, { id, email, diaEvento, timeEvento, direccionEvento, palabrasInvitados }, { headers });
+    }catch(e){
+      console.log('Error:', e);
+      throw error; 
+    }
+  },
+  async eligueDiseno(id, email, template) {
+    try{
+        // Obtener el token CSRF
+    //    const csrfResponse = await axios.get(`${baseURL}/get-token-csrf/`);
+    //    const csrfToken = csrfResponse.data.csrf_token;
+    //    const hPassword = CryptoJS.SHA256(password).toString();
+        const headers = {
+    //        'X-CSRFToken': csrfToken,
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + 'accessToken',
+            'Accept': 'application/json'
+        };
+
+        console.log(headers);
+       
+        return axios.put(`${baseURL}/getInfo/`, { id, email, template }, { headers });
     }catch(e){
       console.log('Error:', e);
       throw error; 

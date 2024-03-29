@@ -33,7 +33,7 @@ export default {
       isLoading: false
     };
   },
-  props: ['uEmail'],
+  props: ['uEmail', 'uName'],
   methods: {
     // Metodo para enviar los datos al servidor
     async sendData() {
@@ -45,9 +45,10 @@ export default {
         // Enviar los datos al servidor
         try {
             console.log('Actualizando datos...');
-            console.log('Nombre:', this.nombreNovia);
-            console.log('Apellido:', this.apellidoNovia);
-            const response = await AuthService.actualizaDatosNovia(this.uEmail, this.nombreNovia, this.apellidoNovia);
+            console.log('Nombre Novia:', this.nombreNovia);
+            console.log('Apellido Novia:', this.apellidoNovia);
+            console.log('Apellido Novio:', this.uName);
+            const response = await AuthService.actualizaDatosNovia('2', this.uEmail, this.uName, this.nombreNovia, this.apellidoNovia);
            console.log('Status:', response.status)
             if (response.status === 200) {
                 console.log('Datos actualizados');
