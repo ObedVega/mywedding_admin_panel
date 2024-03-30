@@ -73,8 +73,8 @@
       </div>
   </div>
   <div class="w3-panel" v-if="user.sitioweb !== ''">
-    <a :href="'https://mywedding-cyks.onrender.com/w/' + (user.nombre ? user.nombre.trim() : '') + '&' + (user.nombreNovia ? user.nombreNovia.trim() : '')" target="_blank">
-      {{ 'https://mywedding-cyks.onrender.com/w/' + (user.nombre ? user.nombre.trim() : '') + '&' + (user.nombreNovia ? user.nombreNovia.trim() : '') }}
+    <a :href="'https://mywedding-cyks.onrender.com/' + (user.nombre ? user.nombre.trim() : '') + '&' + (user.nombreNovia ? user.nombreNovia.trim() : '')" target="_blank">
+      {{ 'https://mywedding-cyks.onrender.com/' + (user.nombre ? user.nombre.trim() : '') + '&' + (user.nombreNovia ? user.nombreNovia.trim() : '') }}
     </a>
   </div>
   <div class="w3-panel" v-else>
