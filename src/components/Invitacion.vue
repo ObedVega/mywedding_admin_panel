@@ -8,10 +8,16 @@
             </div>
             <div class="w3-row-padding">
                 <div class="w3-half w3-border" style="text-align: center;">
-                <label for="img1">
-                    <img src="https://www.w3schools.com/w3css/img_temp_wedding.jpg" class="w3-padding" style="width:98%;margin:20px 0" alt="Wedding Invitation Template"/>
-                </label>
-                <input type="radio" id="img1" name="selectedImage" value="template1"  v-model="template1" required>
+                  <label for="img1">
+                      <img src="https://www.w3schools.com/w3css/img_temp_wedding.jpg" class="w3-padding" style="width:98%;margin:20px 0" alt="Wedding Invitation Template 1"/>
+                  </label>
+                  <input type="radio" id="img1" name="selectedImage" value="template1" v-model="template1" >
+                </div>
+                <div class="w3-half w3-border" style="text-align: center;">
+                  <label for="img2">
+                      <img src="../assets/wedding-template-2.jpg" class="w3-padding" style="width:98%;margin:20px 0" alt="Wedding Invitation Template 2"/>
+                  </label>
+                  <input type="radio" id="img2" name="selectedImage" value="template2" v-model="template2" >
                 </div>
             </div>
             <br>
@@ -28,7 +34,8 @@ import AuthService from '@/services/AuthService.js';
 export default {
   data() {
     return {  
-        template1: '',           
+        template1: '',      
+        template2: '',           
         Msg: 'Seleccionar',         
         isLoading: false
     };
@@ -39,13 +46,14 @@ export default {
     async selectTemplate() {
         this.isLoading = true; 
       // Validar que los campos no esten vacios
-      if (this.template1 === '') {
+      if (this.template1 === '' || this.template2 === '') {
         console.log('Faltan Datos');
       } else {
         // Enviar los datos al servidor
         try {
             console.log('Actualizando datos...');
             console.log(this.template1);
+            console.log(this.template2);
             const response = await AuthService.eligueDiseno('4', this.uEmail, this.template1);
            console.log('Status:', response.status)
             if (response.status === 200) {
