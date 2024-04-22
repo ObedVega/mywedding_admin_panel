@@ -36,6 +36,7 @@ export default {
     return {  
         template1: '',      
         template2: '',           
+        template0:'',
         Msg: 'Seleccionar',         
         isLoading: false
     };
@@ -46,15 +47,21 @@ export default {
     async selectTemplate() {
         this.isLoading = true; 
       // Validar que los campos no esten vacios
-      if (this.template1 === '' || this.template2 === '') {
-        console.log('Faltan Datos');
-      } else {
+   //   if (this.template1 === '' || this.template2 === '') {
+   //     console.log('Faltan Datos');
+   //   } else {
         // Enviar los datos al servidor
         try {
+          
+          if(this.template1!==''){
+            this.template0 = this.template1;
+          } 
+          if(this.template2!=='') {
+            this.template0 = this.template2;
+          }
             console.log('Actualizando datos...');
-            console.log(this.template1);
-            console.log(this.template2);
-            const response = await AuthService.eligueDiseno('4', this.uEmail, this.template1);
+            console.log(this.template0);
+            const response = await AuthService.eligueDiseno('4', this.uEmail, this.template0);
            console.log('Status:', response.status)
             if (response.status === 200) {
                 console.log('Datos actualizados');
@@ -67,8 +74,8 @@ export default {
             this.Msg = 'Continuar';
             this.isLoading = false;
         }
-      }
-    }
+     }
+ //   }
   }
 };
 </script>
