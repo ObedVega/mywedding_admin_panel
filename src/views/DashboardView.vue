@@ -89,7 +89,7 @@
 
   <DatosEvento :uEmail="userEmail"/>
   
-  <Invitacion :uEmail="userEmail"/>
+  <Invitacion :uEmail="userEmail" :uTemplate="user.template"/>
 
 
 
@@ -319,6 +319,7 @@ export default {
       // Actualizar el estado del usuario con la información obtenida
       this.user = userData;
       console.log('Información del usuario:', this.user);
+    //  console.log('Template:', this.user.template);
 //      this.userEmail = userData.email;
   //    this.user.name= 'obed',
 //      console.log('Información del usuario:', this.user.email);

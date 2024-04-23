@@ -32,9 +32,10 @@ export default {
         // Obtener el token CSRF
     //    const csrfResponse = await axios.get(`${baseURL}/get-token-csrf/`);
     //    const csrfToken = csrfResponse.data.csrf_token;
+        const csrfToken = 'nvite.me';
         const hPassword = CryptoJS.SHA256(password).toString();
         const headers = {
-    //        'X-CSRFToken': csrfToken,
+            'X-CSRFToken': csrfToken,
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + 'accessToken',
             'Accept': 'application/json'
